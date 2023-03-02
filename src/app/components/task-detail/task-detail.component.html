@@ -1,0 +1,8 @@
+<div>
+    <div class="task" [ngClass]="{reminder:task.reminder,remindered:!task.reminder}">
+        <h3>{{task.text}}</h3>
+        <p>{{task.day}}</p>
+    </div>
+    <span class="badge">Comments</span>
+    <app-task-detail-comments *ngFor="let update of task.updates" [update]="update"></app-task-detail-comments>
+</div>

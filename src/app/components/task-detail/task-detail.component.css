@@ -1,0 +1,11 @@
+.badge {
+    font-size: 12px;
+    padding: 3px;
+    font-weight: 700;
+    background-color: rgb(221, 65, 96);
+    color: white;
+    border-radius: 2rem;
+    box-shadow: 1px gray;
+    /* text-decoration: underline; */
+    /* border-bottom: 3px solid rgb(180, 77, 228); */
+}

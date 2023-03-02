@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { TaskService } from "../../services/task.service"
 import { Task } from "../../model/Task"
-import { takeLast } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -11,15 +11,23 @@ import { takeLast } from 'rxjs';
 export class TasksComponent implements OnInit {
   tasks: Task[] = []
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.taskService.getTasks().subscribe((tasks) => this.tasks = tasks);
   }
 
+  // Add Task
+  addTask(task: Task) {
+    this.taskService.addTask(task).subscribe(res => {
+      return this.tasks.push(task)
+    })
+  }
+
+  // Delete Task
   deleteTask(task: Task) {
-    this.taskService.deleteTask(task).subscribe(() => this.tasks = this.tasks.filter((t) => t.id !== task.id))
+    this.taskService.deleteTask(task).subscribe(() => this.tasks = this.tasks.filter((t) => t._id !== task._id))
   }
 
   toggleReminder(task: Task) {
@@ -27,9 +35,8 @@ export class TasksComponent implements OnInit {
     this.taskService.updateTaskReminder(task).subscribe()
   }
 
-
-  // ADD TASK
-  addTask(task: Task) {
-    this.taskService.addTask(task).subscribe(task => this.tasks.push(task))
+  taskItemClick(task: Task) {
+    this.router.navigateByUrl(`/task/${task._id}`)
   }
+
 }
